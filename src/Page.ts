@@ -68,9 +68,24 @@ export abstract class Page {
     }
 
     public url(page: Page): string {
-        const pathSegments = page.pathSegments.slice(0);
-        pathSegments.push((page.id !== 'index') ? `${page.id}.html` : '');
-        return '/' + pathSegments.join('/');
+        let relativePath;
+        let relativePathSegments = [];
+        let i = 0;
+        const minLength = Math.min(this.pathSegments.length, page.pathSegments.length);
+        while (i < minLength && this.pathSegments[i] === page.pathSegments[i]) {
+            i++;
+        }
+        if (this.pathSegments.length === i && page.pathSegments.length === i) {
+            relativePath = (page.id !== 'index') ? `${page.id}.html` : '.';
+        } else {
+            for (let j = 0; j < this.pathSegments.length - i; j++) {
+                relativePathSegments.push('..');
+            }
+            relativePathSegments = relativePathSegments.concat(page.pathSegments.slice(i));
+            relativePathSegments.push((page.id !== 'index') ? `${page.id}.html` : '');
+            relativePath = relativePathSegments.join('/');
+        }
+        return relativePath;
     }
 
     protected abstract buildView(view: View): void;
