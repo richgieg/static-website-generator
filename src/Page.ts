@@ -69,7 +69,7 @@ export abstract class Page {
 
     public url(page: Page): string {
         const pathSegments = page.pathSegments.slice(0);
-        pathSegments.push((page.id !== 'index') ? page.id : '');
+        pathSegments.push((page.id !== 'index') ? `${page.id}.html` : '');
         return '/' + pathSegments.join('/');
     }
 
