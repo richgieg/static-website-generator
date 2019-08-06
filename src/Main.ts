@@ -10,7 +10,7 @@ function main(): void {
         const endTime = new Date().getTime();
         const elapsedTime = endTime - startTime;
         console.log(`Site rendered (${elapsedTime}ms)`);
-    } catch(error) {
+    } catch (error) {
         console.error(error);
     }
 }
