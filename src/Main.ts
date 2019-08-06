@@ -5,7 +5,15 @@ import { config } from './Config';
 
 function main(): void {
     initializeSite(rootSite);
-    renderSite(rootSite);
+    try {
+        const startTime = new Date().getTime();
+        renderSite(rootSite);
+        const endTime = new Date().getTime();
+        const elapsedTime = endTime - startTime;
+        console.log(`Site rendered (${elapsedTime}ms)`);
+    } catch(error) {
+        console.error(error);
+    }
 }
 
 function initializeSite(site: ISite): void {
