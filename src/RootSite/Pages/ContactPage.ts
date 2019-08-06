@@ -12,7 +12,7 @@ export class ContactPage extends Page {
 
     protected buildView(view: View): void {
         view
-            .addHeading('Contact')
+            .addHeading(this.getFullTitle())
             .addParagraph(`<a href="${this.url(rootSite.pages.index)}">Home</a>`);
     }
 

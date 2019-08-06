@@ -12,7 +12,7 @@ export class IndexPage extends Page {
 
     protected buildView(view: View): void {
         view
-            .addHeading('Welcome')
+            .addHeading(this.getFullTitle())
             .addParagraph('Here is some paragraph text...')
             .addParagraph(`
                 <a href="${this.url(rootSite.pages.about)}">About</a> |

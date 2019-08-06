@@ -12,7 +12,7 @@ export class AboutPage extends Page {
 
     protected buildView(view: View): void {
         view
-            .addHeading('About')
+            .addHeading(this.getFullTitle())
             .addParagraph(`<a href="${this.url(rootSite.pages.index)}">Home</a>`);
     }
 

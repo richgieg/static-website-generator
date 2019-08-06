@@ -76,7 +76,7 @@ export abstract class Page {
             i++;
         }
         if (this.pathSegments.length === i && page.pathSegments.length === i) {
-            relativePath = (page.id !== 'index') ? `${page.id}.html` : '.';
+            relativePath = (page.id !== 'index') ? `${page.id}.html` : './';
         } else {
             for (let j = 0; j < this.pathSegments.length - i; j++) {
                 relativePathSegments.push('..');
