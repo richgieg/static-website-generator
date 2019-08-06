@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "build": "tslint --project tsconfig.json && tsc",
-    "serve": "http-server www -c-1",
-    "start": "tsc-watch --onSuccess \"node ./intermediate/main.js\""
+    "serve": "http-server output/www -c-1",
+    "start": "tsc-watch --onSuccess \"node ./output/intermediate/main.js\""
   },
   "author": "",
   "license": "ISC",

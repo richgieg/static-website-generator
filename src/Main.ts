@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { ISite, rootSite } from './RootSite/RootSite';
-import { config } from './Config';
 
 function main(): void {
     initializeSite(rootSite);
@@ -46,7 +45,7 @@ function renderSite(site: ISite): void {
         for (const pageId of Object.keys(siteBranch.pages)) {
             const page = siteBranch.pages[pageId];
             const html = page.render();
-            const filePath = path.join(config.outputDirectory, page.getFilePath());
+            const filePath = path.join('output/www', page.getFilePath());
             if (!fs.existsSync(path.dirname(filePath))) {
                 fs.mkdirSync(path.dirname(filePath), { recursive: true });
             }
