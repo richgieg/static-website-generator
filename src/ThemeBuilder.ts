@@ -1,19 +1,22 @@
 export interface ITheme {
     backgroundColor: string;
     textColor: string;
-    font: string;
+    fontFamily: string;
+    baseFontSize: string;
 }
 
 export interface IThemeParams {
     backgroundColor?: string;
     textColor?: string;
-    font?: string;
+    fontFamily?: string;
+    baseFontSize?: string;
 }
 
 const defaultTheme: ITheme = {
     backgroundColor: '#ffffff',
     textColor: '#000000',
-    font: 'sans-serif',
+    fontFamily: 'sans-serif',
+    baseFontSize: '16px',
 };
 
 export class ThemeBuilder {
@@ -21,7 +24,8 @@ export class ThemeBuilder {
     private readonly stacks = {
         backgroundColor: [] as string[],
         textColor: [] as string[],
-        font: [] as string[],
+        fontFamily: [] as string[],
+        baseFontSize: [] as string[],
     };
     private readonly themeParamsStack: IThemeParams[] = [];
 

@@ -63,7 +63,8 @@ export abstract class Page {
             html {
                 background-color: ${this.theme.backgroundColor};
                 color: ${this.theme.textColor};
-                font-family: ${this.theme.font};
+                font-family: ${this.theme.fontFamily};
+                font-size: ${this.theme.baseFontSize};
             }
         </style>
     </head>
