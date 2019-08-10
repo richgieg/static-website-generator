@@ -1,6 +1,6 @@
 import * as path from 'path';
-import { ISite } from './RootSite/RootSite';
 import { View } from './View';
+import { ISite } from './ISite';
 
 interface IParams {
     readonly title: string;

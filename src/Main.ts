@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { ISite, rootSite } from './RootSite/RootSite';
+import { rootSite } from './RootSite/RootSite';
+import { ISite } from './ISite';
 
 function main(): void {
     initializeSite(rootSite);

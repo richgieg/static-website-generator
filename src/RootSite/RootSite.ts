@@ -1,18 +1,7 @@
-import { Page } from '../Page';
 import { AboutPage } from './Pages/AboutPage';
 import { ContactPage } from './Pages/ContactPage';
 import { IndexPage } from './Pages/IndexPage';
 import { blogSite } from './Sites/BlogSite/BlogSite';
-
-export interface ISite {
-    title: string;
-    theme: {
-        backgroundColor: string;
-        textColor: string;
-    };
-    pages: { [id: string]: Page };
-    sites: { [id: string]: ISite };
-}
 
 class RootSite {
 
