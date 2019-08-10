@@ -6,6 +6,10 @@ import { blogSite } from './Sites/BlogSite/BlogSite';
 
 export interface ISite {
     title: string;
+    theme: {
+        backgroundColor: string;
+        textColor: string;
+    };
     pages: { [id: string]: Page };
     sites: { [id: string]: ISite };
 }
@@ -13,6 +17,10 @@ export interface ISite {
 class RootSite {
 
     public readonly title = 'My Website';
+    public readonly theme = {
+        backgroundColor: '#ff0000',
+        textColor: '#ffffff',
+    };
     public readonly pages = {
         about: new AboutPage(),
         contact: new ContactPage(),

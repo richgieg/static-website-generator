@@ -55,10 +55,17 @@ export abstract class Page {
     public render(): string {
         const view = new View();
         this.buildView(view);
+        const theme = this.sites[this.sites.length - 1].theme;
         return `<!DOCTYPE html>
 <html>
     <head>
         <title>${this.getFullTitle()}</title>
+        <style>
+            html {
+                background-color: ${theme.backgroundColor};
+                color: ${theme.textColor};
+            }
+        </style>
     </head>
     <body>
         ${view.toString()}
