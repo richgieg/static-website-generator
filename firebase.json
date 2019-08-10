@@ -2,6 +2,6 @@
   "hosting": {
     "public": "output/www",
     "cleanUrls": true,
-    "trailingBackslash": false
+    "trailingSlash": false
   }
 }
