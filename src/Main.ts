@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { rootSite } from './RootSite/RootSite';
 import { ISite } from './ISite';
+import { ITheme, ThemeBuilder } from './ThemeBuilder';
 
 function main(): void {
     initializeSite(rootSite);
@@ -19,9 +20,13 @@ function main(): void {
 function initializeSite(site: ISite): void {
     const sites: ISite[] = [];
     const pathSegments: string[] = [];
+    const themeBuilder = new ThemeBuilder();
     initializeSiteBranch(site);
     function initializeSiteBranch(siteBranch: ISite): void {
         sites.push(siteBranch);
+        if (siteBranch.theme) {
+            themeBuilder.push(siteBranch.theme);
+        }
         for (const siteId of Object.keys(siteBranch.sites)) {
             pathSegments.push(siteId);
             const childSite = siteBranch.sites[siteId];
@@ -30,7 +35,10 @@ function initializeSite(site: ISite): void {
         }
         for (const pageId of Object.keys(siteBranch.pages)) {
             const page = siteBranch.pages[pageId];
-            page.initialize(pageId, sites, pathSegments);
+            page.initialize(pageId, sites, pathSegments, themeBuilder.getTheme());
+        }
+        if (siteBranch.theme) {
+            themeBuilder.pop();
         }
         sites.pop();
     }

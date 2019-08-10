@@ -7,8 +7,8 @@ class RootSite {
 
     public readonly title = 'My Website';
     public readonly theme = {
-        backgroundColor: '#ff0000',
-        textColor: '#ffffff',
+        backgroundColor: '#ffffff',
+        textColor: '#000000',
     };
     public readonly pages = {
         about: new AboutPage(),

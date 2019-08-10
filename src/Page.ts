@@ -1,6 +1,7 @@
 import * as path from 'path';
 import { View } from './View';
 import { ISite } from './ISite';
+import { ITheme } from './ThemeBuilder';
 
 interface IParams {
     readonly title: string;
@@ -9,21 +10,20 @@ interface IParams {
 export abstract class Page {
 
     private readonly title: string;
-    private id: string;
-    private sites: ISite[];
-    private pathSegments: string[];
+    private id!: string;
+    private sites!: ISite[];
+    private pathSegments!: string[];
+    private theme!: ITheme;
 
     constructor(params: IParams) {
         this.title = params.title;
-        this.id = '';
-        this.sites = [];
-        this.pathSegments = [];
     }
 
-    public initialize(id: string, sites: ISite[], pathSegments: string[]): void {
+    public initialize(id: string, sites: ISite[], pathSegments: string[], theme: ITheme): void {
         this.id = id;
         this.sites = sites.slice(0);
         this.pathSegments = pathSegments.slice(0);
+        this.theme = theme;
     }
 
     public getId(): string {
@@ -55,15 +55,15 @@ export abstract class Page {
     public render(): string {
         const view = new View();
         this.buildView(view);
-        const theme = this.sites[this.sites.length - 1].theme;
         return `<!DOCTYPE html>
 <html>
     <head>
         <title>${this.getFullTitle()}</title>
         <style>
             html {
-                background-color: ${theme.backgroundColor};
-                color: ${theme.textColor};
+                background-color: ${this.theme.backgroundColor};
+                color: ${this.theme.textColor};
+                font-family: ${this.theme.font};
             }
         </style>
     </head>
