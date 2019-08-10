@@ -18,10 +18,12 @@ const defaultTheme: ITheme = {
 
 export class ThemeBuilder {
 
+    private readonly stacks = {
+        backgroundColor: [] as string[],
+        textColor: [] as string[],
+        font: [] as string[],
+    };
     private readonly themeParamsStack: IThemeParams[] = [];
-    private readonly backgroundColorStack: string[] = [];
-    private readonly textColorStack: string[] = [];
-    private readonly fontStack: string[] = [];
 
     constructor() {
         this.push(defaultTheme);
@@ -29,38 +31,35 @@ export class ThemeBuilder {
 
     public push(themeParams: IThemeParams): void {
         this.themeParamsStack.push(themeParams);
-        if (themeParams.backgroundColor) {
-            this.backgroundColorStack.push(themeParams.backgroundColor);
-        }
-        if (themeParams.textColor) {
-            this.textColorStack.push(themeParams.textColor);
-        }
-        if (themeParams.font) {
-            this.fontStack.push(themeParams.font);
+        for (const key in themeParams) {
+            if (themeParams.hasOwnProperty(key)) {
+                if (key in this.stacks) {
+                    (this.stacks as any)[key].push((themeParams as any)[key]);
+                } else {
+                    throw new Error(`Missing stack "${key}" in ThemeBuilder.stacks`);
+                }
+            }
         }
     }
 
     public pop(): void {
         const themeParams = this.themeParamsStack.pop();
-        if (themeParams) {
-            if (themeParams.backgroundColor) {
-                this.backgroundColorStack.pop();
-            }
-            if (themeParams.textColor) {
-                this.textColorStack.pop();
-            }
-            if (themeParams.font) {
-                this.fontStack.pop();
+        for (const key in themeParams) {
+            if (themeParams.hasOwnProperty(key) && this.stacks.hasOwnProperty(key)) {
+                (this.stacks as any)[key].pop();
             }
         }
     }
 
     public getTheme(): ITheme {
-        return {
-            backgroundColor: this.backgroundColorStack[this.backgroundColorStack.length - 1],
-            textColor: this.textColorStack[this.textColorStack.length - 1],
-            font: this.fontStack[this.fontStack.length - 1],
-        };
+        const theme = {} as any;
+        for (const key in this.stacks) {
+            if (this.stacks.hasOwnProperty(key)) {
+                const stack = (this.stacks as any)[key] as string[];
+                theme[key] = stack[stack.length - 1];
+            }
+        }
+        return theme as ITheme;
     }
 
 }

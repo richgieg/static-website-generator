@@ -5,8 +5,8 @@ import { ISite } from './ISite';
 import { ITheme, ThemeBuilder } from './ThemeBuilder';
 
 function main(): void {
-    initializeSite(rootSite);
     try {
+        initializeSite(rootSite);
         const startTime = new Date().getTime();
         renderSite(rootSite);
         const endTime = new Date().getTime();
