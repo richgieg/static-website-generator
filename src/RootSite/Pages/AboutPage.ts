@@ -1,19 +1,15 @@
 import { Page } from '../../Page';
-import { View } from '../../View';
 import { rootSite } from '../RootSite';
 
 export class AboutPage extends Page {
 
-    constructor() {
-        super({
-            title: 'About',
-        });
-    }
+    public readonly title = 'About';
 
-    protected buildView(view: View): void {
-        view
-            .addHeading(this.getFullTitle())
-            .addParagraph(`<a href="${this.url(rootSite.pages.index)}">Home</a>`);
+    protected getContent(): string {
+        return `
+            <h1>${this.getFullTitle()}</h1>
+            <p>${this.link(rootSite.pages.index, 'Home')}</p>
+        `;
     }
 
 }

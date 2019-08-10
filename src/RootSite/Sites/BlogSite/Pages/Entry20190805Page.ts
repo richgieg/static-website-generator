@@ -1,21 +1,17 @@
 import { Page } from '../../../../Page';
-import { View } from '../../../../View';
-import { rootSite } from '../../../RootSite';
 import { blogSite } from '../BlogSite';
+import { rootSite } from '../../../RootSite';
 
 export class Entry20190805Page extends Page {
 
-    constructor() {
-        super({
-            title: '2019-08-05',
-        });
-    }
+    public readonly title = '2019-08-05';
 
-    protected buildView(view: View): void {
-        view
-            .addHeading(this.getFullTitle())
-            .addParagraph(`<a href="${this.url(blogSite.pages.index)}">Blog Home</a>`)
-            .addParagraph(`<a href="${this.url(rootSite.pages.index)}">Home</a>`);
+    protected getContent(): string {
+        return `
+            <h1>${this.getFullTitle()}</h1>
+            <p>${this.link(blogSite.pages.index, 'Blog Home')}</p>
+            <p>${this.link(rootSite.pages.index, 'Home')}</p>
+        `;
     }
 
 }

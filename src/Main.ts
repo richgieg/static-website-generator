@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { rootSite } from './RootSite/RootSite';
 import { ISite } from './ISite';
-import { ITheme, ThemeBuilder } from './ThemeBuilder';
+import { ThemeBuilder } from './ThemeBuilder';
 
 function main(): void {
     try {

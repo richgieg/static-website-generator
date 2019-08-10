@@ -1,23 +1,15 @@
 import * as path from 'path';
-import { View } from './View';
 import { ISite } from './ISite';
 import { ITheme } from './ThemeBuilder';
 
-interface IParams {
-    readonly title: string;
-}
-
 export abstract class Page {
 
-    private readonly title: string;
+    protected abstract readonly title: string;
+
     private id!: string;
     private sites!: ISite[];
     private pathSegments!: string[];
     private theme!: ITheme;
-
-    constructor(params: IParams) {
-        this.title = params.title;
-    }
 
     public initialize(id: string, sites: ISite[], pathSegments: string[], theme: ITheme): void {
         this.id = id;
@@ -26,35 +18,13 @@ export abstract class Page {
         this.theme = theme;
     }
 
-    public getId(): string {
-        return this.id;
-    }
-
     public getFilePath(): string {
         const pathSegments = this.pathSegments.slice(0);
         pathSegments.push(`${this.id}.html`);
         return path.join(...pathSegments);
     }
 
-    public getTitle(): string {
-        return this.title;
-    }
-
-    public getFullTitle(): string {
-        const fullTitleParts: string[] = [];
-        for (const site of this.sites) {
-            fullTitleParts.push(site.title);
-        }
-        if (this.title) {
-            fullTitleParts.push(this.title);
-        }
-        fullTitleParts.reverse();
-        return fullTitleParts.join(' | ');
-    }
-
     public render(): string {
-        const view = new View();
-        this.buildView(view);
         return `<!DOCTYPE html>
 <html>
     <head>
@@ -69,13 +39,34 @@ export abstract class Page {
         </style>
     </head>
     <body>
-        ${view}
+        ${this.getContent()}
     </body>
-</html>
-`;
+</html>`;
     }
 
-    public url(page: Page): string {
+    protected getFullTitle(): string {
+        const fullTitleParts: string[] = [];
+        for (const site of this.sites) {
+            fullTitleParts.push(site.title);
+        }
+        if (this.title) {
+            fullTitleParts.push(this.title);
+        }
+        fullTitleParts.reverse();
+        return fullTitleParts.join(' | ');
+    }
+
+    protected link(destination: Page | string, label: string): string {
+        let url: string;
+        if (destination instanceof Page) {
+            url = this.url(destination);
+        } else {
+            url = destination;
+        }
+        return `<a href="${url}">${label}</a>`;
+    }
+
+    protected url(page: Page): string {
         let relativePath;
         let relativePathSegments = [];
         let i = 0;
@@ -96,6 +87,6 @@ export abstract class Page {
         return relativePath;
     }
 
-    protected abstract buildView(view: View): void;
+    protected abstract getContent(): string;
 
 }

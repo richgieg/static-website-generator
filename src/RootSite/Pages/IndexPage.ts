@@ -1,24 +1,20 @@
 import { Page } from '../../Page';
-import { View } from '../../View';
 import { rootSite } from '../RootSite';
 
 export class IndexPage extends Page {
 
-    constructor() {
-        super({
-            title: '',
-        });
-    }
+    public readonly title = '';
 
-    protected buildView(view: View): void {
-        view
-            .addHeading(this.getFullTitle())
-            .addParagraph('Here is some paragraph text...')
-            .addParagraph(`
-                <a href="${this.url(rootSite.pages.about)}">About</a> |
-                <a href="${this.url(rootSite.pages.contact)}">Contact</a> |
-                <a href="${this.url(rootSite.sites.blog.pages.index)}">Blog</a>`,
-            );
+    protected getContent(): string {
+        return `
+            <h1>${this.getFullTitle()}</h1>
+            <p>Here is some paragraph text...</p>
+            <p>
+                ${this.link(rootSite.pages.about, 'About')} |
+                ${this.link(rootSite.pages.contact, 'Contact')} |
+                ${this.link(rootSite.sites.blog.pages.index, 'Blog')}
+            </p>
+        `;
     }
 
 }
