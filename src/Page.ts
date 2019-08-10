@@ -69,7 +69,7 @@ export abstract class Page {
         </style>
     </head>
     <body>
-        ${view.toString()}
+        ${view}
     </body>
 </html>
 `;
