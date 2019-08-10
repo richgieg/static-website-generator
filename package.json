@@ -4,6 +4,9 @@
   "description": "",
   "scripts": {
     "build": "tslint --project tsconfig.json && tsc",
+    "firebase-deploy": "firebase deploy",
+    "firebase-login": "firebase login",
+    "firebase-logout": "firebase logout",
     "serve": "http-server output/www -c-1",
     "start": "tsc-watch --onSuccess \"node ./output/intermediate/main.js\""
   },
