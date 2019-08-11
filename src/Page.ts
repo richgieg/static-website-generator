@@ -15,13 +15,13 @@ export abstract class Page {
 
     public initialize(id: string, sites: ISite[], pathSegments: string[], theme: ITheme): void {
         this.id = id;
-        this.sites = sites.slice(0);
-        this.pathSegments = pathSegments.slice(0);
+        this.sites = sites.slice();
+        this.pathSegments = pathSegments.slice();
         this.theme = theme;
     }
 
     public getFilePath(): string {
-        const pathSegments = this.pathSegments.slice(0);
+        const pathSegments = this.pathSegments.slice();
         pathSegments.push(`${this.id}.html`);
         return path.join(...pathSegments);
     }
@@ -47,6 +47,14 @@ export abstract class Page {
         ${this.getContent()}
     </body>
 </html>`;
+    }
+
+    public getAbsoluteUrl(): string {
+        const pathSegments = this.pathSegments.slice();
+        if (this.id !== 'index') {
+            pathSegments.push(this.id);
+        }
+        return `/${pathSegments.join('/')}`;
     }
 
     protected getFullTitle(): string {
