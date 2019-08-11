@@ -1,4 +1,9 @@
-.firebase/
+/.firebase/
+/node_modules/
 firebase-debug.log
-node_modules/
-output/
+
+# Ignore all of output directory, except /output/www/_assets.
+/output/*
+!/output/www
+/output/www/*
+!/output/www/_assets
