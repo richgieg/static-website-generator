@@ -50,7 +50,8 @@ export abstract class Page {
     <body>
         ${this.getContent()}
     </body>
-</html>`;
+</html>
+`;
     }
 
     public getAbsoluteUrl(): string {
