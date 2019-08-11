@@ -1,6 +1,7 @@
 import * as path from 'path';
 import { ISite } from './ISite';
 import { ITheme } from './ThemeBuilder';
+import { config } from './Config';
 
 export abstract class Page {
 
@@ -33,6 +34,7 @@ export abstract class Page {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="build-time" content="${Page.buildTime}">
+        ${this.getGoogleSiteVerificationMetaTag()}
         <title>${this.getFullTitle()}</title>
         <style>
             html {
@@ -115,5 +117,13 @@ export abstract class Page {
     }
 
     protected abstract getContent(): string;
+
+    private getGoogleSiteVerificationMetaTag(): string {
+        if (config.googleSiteVerification) {
+            return `<meta name="google-site-verification" content="${config.googleSiteVerification}">`;
+        } else {
+            return '';
+        }
+    }
 
 }
