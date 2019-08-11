@@ -3,7 +3,12 @@
 firebase-debug.log
 
 # Ignore all of output directory, except /output/www/_assets.
-/output/*
-!/output/www
-/output/www/*
-!/output/www/_assets
+# /output/*
+# !/output/www
+# /output/www/*
+# !/output/www/_assets
+
+/compiled/
+
+/www/*
+!/www/_assets

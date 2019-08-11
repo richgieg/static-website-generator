@@ -5,7 +5,7 @@ import { ThemeBuilder } from './ThemeBuilder';
 import { root } from './Root/_Root';
 import { config } from './Config';
 
-const WWW_DIRECTORY = 'output/www';
+const WWW_DIRECTORY = 'www';
 
 function main(): void {
     try {
