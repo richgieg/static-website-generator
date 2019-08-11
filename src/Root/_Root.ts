@@ -5,7 +5,7 @@ import { products } from './Products/_Products';
 
 class Site {
 
-    public readonly title = 'My Website';
+    public readonly title = 'Static Website Generator';
     public readonly theme = {
         backgroundColor: '#ffffff',
         textColor: '#000000',
