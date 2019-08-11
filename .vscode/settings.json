@@ -1,4 +1,16 @@
 {
+    "files.exclude": {
+        ".firebase": true,
+        "node_modules": true,
+        "output/intermediate": true,
+        "output/www/[^_]*": true,
+        "output/www/_[^a]*": true,
+        "output/www/_a[^s]*": true,
+        "output/www/_as[^s]*": true,
+        "output/www/_ass[^e]*": true,
+        "output/www/_asse[^t]*": true,
+        "output/www/_asset[^s]*": true,
+    },
     "files.trimTrailingWhitespace": true,
     "typescript.preferences.importModuleSpecifier": "auto",
     "typescript.preferences.quoteStyle": "single"
