@@ -2,6 +2,17 @@
   "hosting": {
     "public": "output/www",
     "cleanUrls": true,
-    "trailingSlash": false
+    "trailingSlash": false,
+    "headers": [
+      {
+        "source": "/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=60"
+          }
+        ]
+      }
+    ]
   }
 }
