@@ -1,14 +1,14 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { rootSite } from './RootSite/RootSite';
 import { ISite } from './ISite';
 import { ThemeBuilder } from './ThemeBuilder';
+import { root } from './Root/_Root';
 
 function main(): void {
     try {
-        initializeSite(rootSite);
+        initializeSite(root);
         const startTime = new Date().getTime();
-        renderSite(rootSite);
+        renderSite(root);
         const endTime = new Date().getTime();
         const elapsedTime = endTime - startTime;
         console.log(`Site rendered (${elapsedTime}ms)`);
