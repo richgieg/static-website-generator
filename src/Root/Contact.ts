@@ -5,7 +5,7 @@ export class Contact extends Page {
     public readonly title = 'Contact';
 
     protected getContent(): string {
-        return 'Contact';
+        return this.getFullTitle();
     }
 
 }

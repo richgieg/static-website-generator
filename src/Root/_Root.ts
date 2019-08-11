@@ -1,6 +1,7 @@
 import { Index } from './Index';
 import { About } from './About';
 import { Contact } from './Contact';
+import { products } from './Products/_Products';
 
 class Site {
 
@@ -14,7 +15,9 @@ class Site {
         about: new About(),
         contact: new Contact(),
     };
-    public readonly sites = {};
+    public readonly sites = {
+        products,
+    };
 
 }
 

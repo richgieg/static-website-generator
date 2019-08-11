@@ -5,7 +5,7 @@ export class About extends Page {
     public readonly title = 'About';
 
     protected getContent(): string {
-        return 'About';
+        return this.getFullTitle();
     }
 
 }
