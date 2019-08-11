@@ -7,7 +7,7 @@
     "firebase-deploy": "firebase deploy",
     "firebase-login": "firebase login",
     "firebase-logout": "firebase logout",
-    "serve": "http-server output/www -c-1",
+    "firebase-serve": "firebase serve",
     "start": "tsc-watch --onSuccess \"node ./output/intermediate/main.js\""
   },
   "author": "",
@@ -15,7 +15,6 @@
   "devDependencies": {
     "@types/node": "^12.6.8",
     "firebase-tools": "^7.2.2",
-    "http-server": "0.9.0",
     "tsc-watch": "^2.2.1",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
