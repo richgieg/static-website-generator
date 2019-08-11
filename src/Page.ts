@@ -1,11 +1,12 @@
-import * as path from 'path';
+import { join as pathJoin } from 'path';
 import { ISite } from './ISite';
 import { ITheme } from './ThemeBuilder';
 import { config } from './Config';
 
 export abstract class Page {
 
-    private static buildTime = new Date().toISOString();
+    private static buildTimeMs = new Date().getTime();
+    private static buildTimeString = new Date(Page.buildTimeMs).toISOString();
 
     protected abstract readonly title: string;
 
@@ -24,7 +25,7 @@ export abstract class Page {
     public getFilePath(): string {
         const pathSegments = this.pathSegments.slice();
         pathSegments.push(`${this.id}.html`);
-        return path.join(...pathSegments);
+        return pathJoin(...pathSegments);
     }
 
     public render(): string {
@@ -32,10 +33,11 @@ export abstract class Page {
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="build-time" content="${Page.buildTime}">
-        ${this.getGoogleSiteVerificationMetaTag()}
         <title>${this.getFullTitle()}</title>
+        <link rel="shortcut icon" href="${this.assetUrl('favicon.ico')}">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+        <meta name="build-time" content="${Page.buildTimeString}">
+        ${this.getGoogleSiteVerificationMetaTag()}
         <style>
             html {
                 background-color: ${this.theme.backgroundColor};
@@ -74,14 +76,14 @@ export abstract class Page {
     protected link(destination: Page | string, label: string): string {
         let url: string;
         if (destination instanceof Page) {
-            url = this.url(destination);
+            url = this.pageUrl(destination);
         } else {
             url = destination;
         }
         return `<a href="${url}">${label}</a>`;
     }
 
-    protected url(page: Page): string {
+    protected pageUrl(page: Page): string {
         let relativePath;
         let relativePathSegments = [];
         let i = 0;
@@ -113,6 +115,15 @@ export abstract class Page {
             }
             relativePath = relativePathSegments.join('/');
         }
+        return relativePath;
+    }
+
+    protected assetUrl(path: string): string {
+        const assetPathSegments = ['_assets'].concat(path.split('/'));
+        let relativePath;
+        let relativePathSegments = this.pathSegments.map(() => '..');
+        relativePathSegments = relativePathSegments.concat(assetPathSegments);
+        relativePath = relativePathSegments.join('/');
         return relativePath;
     }
 
