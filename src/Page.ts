@@ -75,13 +75,27 @@ export abstract class Page {
             i++;
         }
         if (this.pathSegments.length === i && page.pathSegments.length === i) {
-            relativePath = (page.id !== 'index') ? `${page.id}.html` : './';
+            if (page.id !== 'index') {
+                if (this.pathSegments.length > 0) {
+                    relativePath = `${this.pathSegments[this.pathSegments.length - 1]}/${page.id}`;
+                } else {
+                    relativePath = `${page.id}`;
+                }
+            } else {
+                if (this.pathSegments.length > 0) {
+                    relativePath = `../${this.pathSegments[this.pathSegments.length - 1]}`;
+                } else {
+                    relativePath = '.';
+                }
+            }
         } else {
             for (let j = 0; j < this.pathSegments.length - i; j++) {
                 relativePathSegments.push('..');
             }
             relativePathSegments = relativePathSegments.concat(page.pathSegments.slice(i));
-            relativePathSegments.push((page.id !== 'index') ? `${page.id}.html` : '');
+            if (page.id !== 'index') {
+                relativePathSegments.push(`${page.id}`);
+            }
             relativePath = relativePathSegments.join('/');
         }
         return relativePath;
