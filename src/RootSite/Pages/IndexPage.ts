@@ -1,5 +1,6 @@
 import { Page } from '../../Page';
 import { rootSite } from '../RootSite';
+import { blogSite } from '../Sites/BlogSite/BlogSite';
 
 export class IndexPage extends Page {
 
@@ -12,7 +13,7 @@ export class IndexPage extends Page {
             <p>
                 ${this.link(rootSite.pages.about, 'About')} |
                 ${this.link(rootSite.pages.contact, 'Contact')} |
-                ${this.link(rootSite.sites.blog.pages.index, 'Blog')}
+                ${this.link(blogSite.pages.index, 'Blog')}
             </p>
         `;
     }
