@@ -4,6 +4,8 @@ import { ITheme } from './ThemeBuilder';
 
 export abstract class Page {
 
+    private static buildTime = new Date().toISOString();
+
     protected abstract readonly title: string;
 
     private id!: string;
@@ -30,6 +32,7 @@ export abstract class Page {
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="build-time" content="${Page.buildTime}">
         <title>${this.getFullTitle()}</title>
         <style>
             html {
