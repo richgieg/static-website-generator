@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "tslint --project tsconfig.json && tsc",
+    "build": "tslint --project tsconfig.json && tsc && node ./output/intermediate/main.js",
     "firebase-deploy": "firebase deploy",
     "firebase-login": "firebase login",
     "firebase-logout": "firebase logout",
