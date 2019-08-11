@@ -1,4 +1,4 @@
-import { Page } from '../../Page';
+import { Page } from '../../generator/Page';
 import { products } from './_Products';
 
 export class Index extends Page {

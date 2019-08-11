@@ -1,4 +1,4 @@
-import { Page } from '../Page';
+import { Page } from '../generator/Page';
 import { root } from './_Root';
 import { products } from './Products/_Products';
 

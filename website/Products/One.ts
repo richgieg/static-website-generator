@@ -1,4 +1,4 @@
-import { Page } from '../../Page';
+import { Page } from '../../generator/Page';
 
 export class One extends Page {
 

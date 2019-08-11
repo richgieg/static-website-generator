@@ -2,8 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { ISite } from './ISite';
 import { ThemeBuilder } from './ThemeBuilder';
-import { root } from './Root/_Root';
 import { config } from './Config';
+import { root } from '../website/_Root';
 
 const WWW_DIRECTORY = 'www';
 
