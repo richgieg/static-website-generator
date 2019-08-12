@@ -6,6 +6,7 @@ import { config } from './Config';
 import { root } from '../website/_Root';
 
 const WWW_DIRECTORY = 'www';
+const ASSETS_DIRECTORY = path.join(WWW_DIRECTORY, '_assets');
 
 function main(): void {
     try {
@@ -48,6 +49,7 @@ function initializeSite(site: ISite): void {
 }
 
 function renderSite(site: ISite): void {
+    const filesRendered: string[] = [];
     const sitemapUrls: string[] = [];
     renderSiteBranch(site);
     function renderSiteBranch(siteBranch: ISite): void {
@@ -64,19 +66,22 @@ function renderSite(site: ISite): void {
                 fs.mkdirSync(path.dirname(filePath), { recursive: true });
             }
             fs.writeFileSync(filePath, html);
+            filesRendered.push(filePath);
         }
     }
-    generateSitemapTxt(sitemapUrls);
-    generateRobotsTxt();
+    filesRendered.push(renderSitemapTxt(sitemapUrls));
+    filesRendered.push(renderRobotsTxt());
+    removeUnusedFiles(filesRendered);
 }
 
-function generateSitemapTxt(sitemapUrls: string[]): void {
+function renderSitemapTxt(sitemapUrls: string[]): string {
     const filePath = path.join(WWW_DIRECTORY, 'sitemap.txt');
     sitemapUrls.sort();
     fs.writeFileSync(filePath, `${sitemapUrls.join('\n')}\n`);
+    return filePath;
 }
 
-function generateRobotsTxt(): void {
+function renderRobotsTxt(): string {
     const filePath = path.join(WWW_DIRECTORY, 'robots.txt');
     const lines = [
         'user-agent: *',
@@ -84,6 +89,30 @@ function generateRobotsTxt(): void {
         `sitemap: ${config.siteUrl}/sitemap.txt`,
     ];
     fs.writeFileSync(filePath, `${lines.join('\n')}\n`);
+    return filePath;
+}
+
+function removeUnusedFiles(filesRendered: string[]): void {
+    const filesToKeep = {} as { [fileRenderd: string]: boolean };
+    for (const fileRendered of filesRendered) {
+        filesToKeep[fileRendered] = true;
+    }
+    removeUnusedFilesInternal(WWW_DIRECTORY);
+    function removeUnusedFilesInternal(directory: string): void {
+        const entries = fs.readdirSync(directory);
+        for (const entry of entries) {
+            const entryPath = path.join(directory, entry);
+            if (fs.lstatSync(entryPath).isDirectory()) {
+                if (entryPath !== ASSETS_DIRECTORY) {
+                    removeUnusedFilesInternal(entryPath);
+                }
+            } else {
+                if (!(entryPath in filesToKeep)) {
+                    fs.unlinkSync(entryPath);
+                }
+            }
+        }
+    }
 }
 
 main();
